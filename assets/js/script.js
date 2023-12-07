@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const card = `
           <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
-              <img src="${photo.src.medium}" class="bd-placeholder-img card-img-top" alt="${photo.photographer}" />
+              <a href="details.html?artist=${photo.photographer}&page=${photo.photographer_url}"><img src="${photo.src.medium}" class="bd-placeholder-img card-img-top" alt="${photo.photographer}" /></a>
               <div class="card-body">
                 <h5 class="card-title">${photo.photographer}</h5>
                 <p class="card-text">${photo.id}</p>
@@ -44,17 +44,18 @@ document.addEventListener('DOMContentLoaded', function () {
       button.closest('.col-md-4').remove();
     }
   
-    function handleSearch(event) {
-      event.preventDefault();
-      const query = document.getElementById('search-input').value;
-      loadImages(query);
-    }
+    document.getElementById('search-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const query = document.getElementById('search-input').value;
+        loadImages(query);
+      });
+    
   
     function redirectToDetailPage(card) {
       const photographer = card.querySelector('.card-title').textContent;
       const imageId = card.querySelector('.card-text').textContent;
       console.log(`Redirecting to detail page for image ID: ${imageId}, Photographer: ${photographer}`);
-      window.location.href = 'detail.html?id=' + 'imageId';
+      window.location.href = 'details.html?id=' + 'imageId';
     }
   
     document.querySelector('.btn-primary').addEventListener('click', function () {
